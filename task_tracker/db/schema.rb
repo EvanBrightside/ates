@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_03_174547) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_03_180244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "auth_identity_providers", ["auth"]
+  create_enum "task_statuses_list", ["created", "done"]
 
   create_table "accounts", force: :cascade do |t|
     t.string "email"
@@ -39,5 +40,29 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_03_174547) do
     t.index ["account_id"], name: "index_auth_identities_on_account_id"
   end
 
-  add_foreign_key "auth_identities", "accounts", on_delete: :cascade
+  create_table "task_statuses", force: :cascade do |t|
+    t.string "status", null: false
+    t.string "comment"
+    t.bigint "account_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_task_statuses_on_account_id"
+    t.index ["task_id"], name: "index_task_statuses_on_task_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.integer "status", default: 0, null: false
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_tasks_on_account_id"
+  end
+
+  add_foreign_key "auth_identities", "accounts"
+  add_foreign_key "task_statuses", "accounts"
+  add_foreign_key "task_statuses", "tasks"
+  add_foreign_key "tasks", "accounts"
 end

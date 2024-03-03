@@ -9,11 +9,9 @@ class CreateAuthIdentities < ActiveRecord::Migration[7.0]
       t.string :login, null: false
       t.string :token
       t.string :password_hash
-      t.references :account, null: false, foreign_key: false
+      t.references :account, null: false, foreign_key: true, on_delete: :cascade
 
       t.timestamps null: false
     end
-
-    add_foreign_key :auth_identities, :accounts, on_delete: :cascade
   end
 end
