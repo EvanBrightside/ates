@@ -77,6 +77,7 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     erubi (1.12.0)
+    ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -92,6 +93,22 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    karafka (2.3.3)
+      karafka-core (>= 2.3.0, < 2.4.0)
+      waterdrop (>= 2.6.12, < 3.0.0)
+      zeitwerk (~> 2.3)
+    karafka-core (2.3.0)
+      karafka-rdkafka (>= 0.14.8, < 0.15.0)
+    karafka-rdkafka (0.14.10)
+      ffi (~> 1.15)
+      mini_portile2 (~> 2.6)
+      rake (> 12)
+    karafka-web (0.8.2)
+      erubi (~> 1.4)
+      karafka (>= 2.3.0, < 2.4.0)
+      karafka-core (>= 2.3.0, < 2.4.0)
+      roda (~> 3.68, >= 3.69)
+      tilt (~> 2.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -162,6 +179,8 @@ GEM
     redis (4.8.1)
     reline (0.4.3)
       io-console (~> 0.5)
+    roda (3.77.0)
+      rack
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -173,6 +192,7 @@ GEM
       railties (>= 6.0.0)
     stringio (3.1.0)
     thor (1.3.1)
+    tilt (2.3.0)
     timeout (0.4.1)
     turbo-rails (2.0.4)
       actionpack (>= 6.0.0)
@@ -180,6 +200,9 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    waterdrop (2.6.14)
+      karafka-core (>= 2.2.3, < 3.0.0)
+      zeitwerk (~> 2.3)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -198,6 +221,8 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  karafka
+  karafka-web (~> 0.8.2)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8, >= 7.0.8.1)
@@ -206,6 +231,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  waterdrop
   web-console
 
 RUBY VERSION
