@@ -8,7 +8,7 @@ class Account < ApplicationRecord
   validates :password, length: { minimum: 6 }
   validates :password, confirmation: true
 
-  has_secure_password
+  # has_secure_password
 
   def self.from_omniauth(auth)
     find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |account|

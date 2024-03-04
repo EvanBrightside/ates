@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :tasks
+  root 'tasks#index'
+  get '/auth/:provider/callback', to: 'auth_identities#create'
+  delete '/sign_out', to: 'auth_identities#destroy'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
   mount Karafka::Web::App, at: '/karafka'
 end

@@ -37,14 +37,14 @@ class AccountsController < ApplicationController
             position: @account.position
           }
         }
-        # Producer.call(event.to_json, topic: 'accounts-stream')
+        WaterDrop::SyncProducer.call(event.to_json, topic: 'accounts-stream')
 
         if new_role
           event = {
             event_name: 'AccountRoleChanged',
             data: { public_id: public_id, role: role }
           }
-          # Producer.call(event.to_json, topic: 'accounts')
+          WaterDrop::SyncProducer.call(event.to_json, topic: 'accounts')
         end
         # --------------------------------------------------------------------
 

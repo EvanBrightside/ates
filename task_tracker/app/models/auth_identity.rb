@@ -17,4 +17,8 @@ class AuthIdentity < ApplicationRecord
   def to_token_payload
     { sub: id }
   end
+
+  def self.find_or_create_with_omniauth(auth_hash)
+    find_or_create_by(provider: auth_hash['provider'], uid: auth_hash['uid'])
+  end
 end
