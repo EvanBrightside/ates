@@ -3,7 +3,7 @@
 class KarafkaApp < Karafka::App
   setup do |config|
     config.kafka = { 'bootstrap.servers': '127.0.0.1:9092' }
-    config.client_id = 'task_tracker_service'
+    config.client_id = 'accounting_service'
     config.consumer_persistence = !Rails.env.development?
   end
 
@@ -17,12 +17,16 @@ class KarafkaApp < Karafka::App
 
   routes.draw do
     consumer_group :notifications do
-      topic :account_changes do
+      topic :accounts do
         consumer AccountChanges
       end
 
       topic :accounts_stream do
         consumer AccountChanges
+      end
+
+      topic :tasks_stream do
+        consumer TasksChanges
       end
     end
   end
