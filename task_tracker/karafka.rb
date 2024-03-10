@@ -17,7 +17,7 @@ class KarafkaApp < Karafka::App
 
   routes.draw do
     consumer_group :notifications do
-      topic :account_changes do
+      topic :accounts do
         consumer AccountChanges
       end
 

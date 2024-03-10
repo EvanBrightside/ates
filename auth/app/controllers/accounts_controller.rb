@@ -28,6 +28,7 @@ class AccountsController < ApplicationController
 
       if @account.update(account_params)
         # ----------------------------- produce event -----------------------
+
         # Events::AccountUpdated.new(payload).to_h.to_json
         event = {
           **account_event_data,
@@ -44,6 +45,14 @@ class AccountsController < ApplicationController
         WaterDrop::SyncProducer.call(event.to_json, topic: 'accounts-stream') if result.success?
         # --------------------------------------------------------------------
         produce_be_event(@account.public_id, new_role) if new_role
+
+        if new_role
+          event = {
+            event_name: 'AccountRoleChanged',
+            data: { public_id: public_id, role: role }
+          }
+          WaterDrop::SyncProducer.call(event.to_json, topic: 'accounts')
+        end
         # --------------------------------------------------------------------
 
         format.html { redirect_to root_path, notice: 'Account was successfully updated.' }
