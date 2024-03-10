@@ -1,3 +1,0 @@
-[submodule "event_schema_registry"]
-	path = event_schema_registry
-	url = https://github.com/davydovanton/event_schema_registry.git

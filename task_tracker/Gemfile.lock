@@ -1,5 +1,6 @@
-PATH
-  remote: ../event_schema_registry/ruby
+GIT
+  remote: https://github.com/davydovanton/event_schema_registry.git
+  revision: ec9d24ba6657a3db9ff6cf1e915d66190895d47f
   specs:
     schema_registry (1)
       json-schema
