@@ -26,6 +26,10 @@ class Account < ApplicationRecord
 
     # ----------------------------- produce event -----------------------
     event = {
+      event_id: SecureRandom.uuid,
+      event_version: 1,
+      event_time: Time.now.to_s,
+      producer: 'auth_service',
       event_name: 'AccountCreated',
       data: {
         public_id: account.public_id,
@@ -34,7 +38,12 @@ class Account < ApplicationRecord
         position: account.position
       }
     }
-    WaterDrop::SyncProducer.call(event.to_json, topic: 'accounts-stream')
+
+    result = SchemaRegistry.validate_event(event, 'accounts.created', version: 1)
+
+    if result.success?
+      WaterDrop::SyncProducer.call(event.to_json, topic: 'accounts-stream')
+    end
     # --------------------------------------------------------------------
   end
 end

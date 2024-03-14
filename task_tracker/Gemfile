@@ -34,6 +34,8 @@ gem 'karafka'
 gem 'karafka-web', '~> 0.8.2'
 gem 'waterdrop'
 
+gem "schema_registry", git: "https://github.com/davydovanton/event_schema_registry.git"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

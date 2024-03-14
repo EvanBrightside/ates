@@ -45,6 +45,7 @@ gem 'devise'
 gem 'doorkeeper'
 
 # Events
+gem "schema_registry", git: "https://github.com/davydovanton/event_schema_registry.git"
 gem 'waterdrop'
 
 # Use Sass to process CSS
