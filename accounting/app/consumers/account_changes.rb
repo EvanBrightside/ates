@@ -4,7 +4,7 @@ class AccountChanges < ApplicationConsumer
   def consume
     params_batch.each do |message|
       case [message['event_name'], message['event_version']]
-      when 'AccountCreated'
+      when 'AccountRegistered'
         # TODO: if you want
       when ['AccountUpdated', 1]
         account_repo.update_by_public_id(

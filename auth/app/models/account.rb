@@ -30,7 +30,7 @@ class Account < ApplicationRecord
       event_version: 1,
       event_time: Time.now.to_s,
       producer: 'auth_service',
-      event_name: 'AccountCreated',
+      event_name: 'AccountRegistered',
       data: {
         public_id: account.public_id,
         email: account.email,
